@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lumina AI - Daily Learning App</title>
+
+  <meta
+    name="description"
+    content="Lumina AI - Learn English with AI search, vocabulary, quizzes and speaking practice."
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- BACKGROUND -->
+  <div class="background-glow glow-one"></div>
+  <div class="background-glow glow-two"></div>
+
+  <!-- HEADER -->
+  <header class="header">
+
+    <div class="logo">
+      <span>Lumina</span><b>AI</b>
+    </div>
+
+    <nav class="nav">
+
+      <button class="nav-btn active" data-page="home">
+        Home
+      </button>
+
+      <button class="nav-btn" data-page="search">
+        AI Search
+      </button>
+
+      <button class="nav-btn" data-page="vocabulary">
+        Vocab <small>100</small>
+      </button>
+
+      <button class="nav-btn" data-page="quiz">
+        Quizzes <small>20</small>
+      </button>
+
+      <button class="nav-btn" data-page="speaking">
+        Speaking <small>100</small>
+      </button>
+
+      <button class="nav-btn" data-page="grammar">
+        Grammar
+      </button>
+
+    </nav>
+
+    <button id="apiKeyButton" class="api-button">
+      Gemini API Key
+    </button>
+
+  </header>
+
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- HOME -->
+    <section id="home" class="page active-page">
+
+      <div class="hero">
+
+        <div class="badge">
+          ✦ AI-POWERED LANGUAGE ENGINE
+        </div>
+
+        <h1>
+          Ask. Learn. <span>Improve.</span>
+        </h1>
+
+        <p>
+          Learn English through AI-powered search, vocabulary,
+          speaking practice, grammar and quizzes.
+        </p>
+
+        <div class="home-search">
+
+          <input
+            id="homeSearchInput"
+            type="text"
+            placeholder="Ask anything... e.g. Explain present tense"
+          >
+
+          <button id="homeAskButton" class="primary-button">
+            Ask AI
+          </button>
+
+        </div>
+
+        <div class="quick-questions">
+
+          <button data-question="Explain present tense">
+            Explain present tense
+          </button>
+
+          <button data-question="What does resilient mean?">
+            What does resilient mean?
+          </button>
+
+          <button data-question="How can I improve English speaking?">
+            Improve speaking
+          </button>
+
+          <button data-question="Give me a vocabulary quiz">
+            Vocabulary quiz
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="stats">
+
+        <div class="stat-card">
+          <strong>100</strong>
+          <span>Vocabulary Words</span>
+        </div>
+
+        <div class="stat-card">
+          <strong>20</strong>
+          <span>Smart Quizzes</span>
+        </div>
+
+        <div class="stat-card">
+          <strong>100</strong>
+          <span>Speaking Phrases</span>
+        </div>
+
+        <div class="stat-card">
+          <strong>AI</strong>
+          <span>Learning Assistant</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- AI SEARCH -->
+    <section id="search" class="page">
+
+      <div class="section-heading">
+
+        <div class="badge">
+          ✦ LUMINA AI SEARCH
+        </div>
+
+        <h2>Ask Anything. Learn Everything.</h2>
+
+        <p>
+          Ask questions about English, grammar, vocabulary,
+          finance, coding, science and other educational topics.
+        </p>
+
+      </div>
+
+      <div class="search-box">
+
+        <textarea
+          id="searchInput"
+          rows="3"
+          placeholder="Example: Explain present tense with simple examples..."
+        ></textarea>
+
+        <div class="search-actions">
+
+          <button id="voiceSearchButton" class="secondary-button">
+            🎤 Voice
+          </button>
+
+          <button id="searchButton" class="primary-button">
+            🔍 Search
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="suggestions">
+
+        <button data-question="Explain present tense">
+          Present tense
+        </button>
+
+        <button data-question="What does resilient mean?">
+          Resilient meaning
+        </button>
+
+        <button data-question="Correct this sentence: He go to college every day">
+          Correct sentence
+        </button>
+
+        <button data-question="Explain behavioural finance simply">
+          Behavioural finance
+        </button>
+
+        <button data-question="Translate hello into Hindi">
+          Translation
+        </button>
+
+      </div>
+
+
+      <div id="searchLoading" class="loading hidden">
+        <div class="spinner"></div>
+        <span>Lumina AI is thinking...</span>
+      </div>
+
+
+      <article id="answerContainer" class="answer-container hidden">
+
+        <div class="answer-header">
+          <div>
+            <span class="answer-label">LUMINA AI ANSWER</span>
+            <h3 id="answerTitle"></h3>
+          </div>
+
+          <button id="speakAnswerButton" class="icon-button">
+            🔊
+          </button>
+        </div>
+
+        <div id="answerContent"></div>
+
+        <div id="relatedQuestions" class="related"></div>
+
+      </article>
+
+
+      <div class="recent-section">
+
+        <div class="section-small-title">
+          Recent searches
+          <button id="clearHistoryButton">Clear</button>
+        </div>
+
+        <div id="searchHistory"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- VOCABULARY -->
+    <section id="vocabulary" class="page">
+
+      <div class="section-heading">
+
+        <div class="badge">✦ VOCABULARY VAULT</div>
+
+        <h2>100 Useful English Words</h2>
+
+        <p>
+          Build your vocabulary from B1 to C2.
+        </p>
+
+      </div>
+
+      <div class="vocab-controls">
+
+        <input
+          id="vocabSearch"
+          type="text"
+          placeholder="Search vocabulary..."
+        >
+
+        <select id="levelFilter">
+          <option value="all">All Levels</option>
+          <option value="B1">B1</option>
+          <option value="B2">B2</option>
+          <option value="C1">C1</option>
+          <option value="C2">C2</option>
+        </select>
+
+        <button id="randomWordButton" class="primary-button">
+          🎲 Random Word
+        </button>
+
+      </div>
+
+      <div id="vocabularyGrid" class="vocabulary-grid"></div>
+
+    </section>
+
+
+    <!-- QUIZ -->
+    <section id="quiz" class="page">
+
+      <div class="section-heading">
+
+        <div class="badge">✦ SMART QUIZ</div>
+
+        <h2>Test Your Knowledge</h2>
+
+        <p>
+          20 questions with instant explanations.
+        </p>
+
+      </div>
+
+      <div class="quiz-card">
+
+        <div class="quiz-top">
+
+          <span id="quizNumber">
+            Question 1 / 20
+          </span>
+
+          <span id="quizScore">
+            Score: 0
+          </span>
+
+        </div>
+
+        <div class="progress">
+          <div id="quizProgress"></div>
+        </div>
+
+        <h3 id="quizQuestion"></h3>
+
+        <div id="quizOptions" class="quiz-options"></div>
+
+        <div id="quizExplanation" class="quiz-explanation hidden"></div>
+
+        <button id="nextQuizButton" class="primary-button hidden">
+          Next Question →
+        </button>
+
+        <button id="restartQuizButton" class="secondary-button hidden">
+          Restart Quiz
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- SPEAKING -->
+    <section id="speaking" class="page">
+
+      <div class="section-heading">
+
+        <div class="badge">✦ SPEAKING LAB</div>
+
+        <h2>Speak. Practice. Improve.</h2>
+
+        <p>
+          Practice 100 useful English sentences.
+        </p>
+
+      </div>
+
+      <div class="speaking-card">
+
+        <div class="phrase-number" id="phraseNumber">
+          Phrase 1 / 100
+        </div>
+
+        <h3 id="speakingPhrase"></h3>
+
+        <div class="speaking-actions">
+
+          <button id="speakPhraseButton" class="primary-button">
+            🔊 Listen
+          </button>
+
+          <button id="microphoneButton" class="secondary-button">
+            🎤 Speak
+          </button>
+
+          <button id="nextPhraseButton" class="secondary-button">
+            Next →
+          </button>
+
+        </div>
+
+        <div id="speechResult" class="speech-result">
+          Press the microphone and speak the sentence.
+        </div>
+
+        <div class="accuracy-box">
+          <span>Accuracy</span>
+          <strong id="speechScore">--</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- GRAMMAR -->
+    <section id="grammar" class="page">
+
+      <div class="section-heading">
+
+        <div class="badge">✦ GRAMMAR LAB</div>
+
+        <h2>English Grammar Made Simple</h2>
+
+        <p>
+          Learn important grammar concepts with examples.
+        </p>
+
+      </div>
+
+      <div id="grammarGrid" class="grammar-grid"></div>
+
+    </section>
+
+  </main>
+
+
+  <!-- API MODAL -->
+  <div id="apiModal" class="modal hidden">
+
+    <div class="modal-content">
+
+      <button id="closeModalButton" class="modal-close">
+        ×
+      </button>
+
+      <h2>Gemini AI Setup</h2>
+
+      <p>
+        Enter your Gemini API key to enable AI-generated answers.
+      </p>
+
+      <input
+        id="apiKeyInput"
+        type="password"
+        placeholder="Paste Gemini API key"
+      >
+
+      <div class="modal-actions">
+
+        <button id="saveApiButton" class="primary-button">
+          Save Key
+        </button>
+
+        <button id="removeApiButton" class="secondary-button">
+          Remove Key
+        </button>
+
+      </div>
+
+      <p class="warning">
+        ⚠️ GitHub Pages is public. Do not use a personal/private API
+        key in a production website. A backend/serverless function
+        is safer.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST -->
+  <div id="toast" class="toast"></div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
